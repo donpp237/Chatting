@@ -1,0 +1,76 @@
+﻿<Window x:Class="ChatClient.Views.ClientView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:viewModel="clr-namespace:ChatClient.ViewModels"
+        mc:Ignorable="d" 
+        d:DesignHeight="450" d:DesignWidth="800">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <viewModel:ClientViewModel x:Key="clientViewModel"/>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid DataContext="{Binding Source={StaticResource clientViewModel}}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="connectArea"
+              Grid.Row="0"
+              Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="40"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox Grid.Column="0"
+                     Margin="0,0,2,0"
+                     IsEnabled="False"
+                     VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="Center"
+                     Text="대화명"/>
+
+            <TextBox x:Name="userName"
+                     Grid.Column="1"
+                     Margin="0,0,2,0"
+                     VerticalContentAlignment="Center"
+                     Text="{Binding UserName}"/>
+
+            <Button Grid.Column="2"
+                    Content="접속"
+                    Command="{Binding ConnectCommand}"
+                    Click="ConnectBtnClick"/>
+        </Grid>
+
+        <TextBox x:Name="outputArea"
+                 Grid.Row="1"
+                 IsEnabled="False"
+                 Margin="5"
+                 Text="{Binding Chat}"/>
+
+        <Grid x:Name="inputArea"
+              IsEnabled="False"
+              Grid.Row="2"
+              Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="50"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox Grid.Column="0"
+                     Margin="0,0,2,0"
+                     VerticalContentAlignment="Center"
+                     Text="{Binding SendContent}"/>
+
+            <Button Grid.Column="1"
+                    Command="{Binding SendCommand}"
+                    Content="전송"/>
+        </Grid>
+    </Grid>
+</Window>
